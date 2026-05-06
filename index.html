@@ -1,10 +1,278 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Study Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cozy Study Quest</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(#c9f4d2, #fef6d8);
+      color: #4b3f2f;
+      text-align: center;
+      padding: 25px;
+    }
+
+    h1 {
+      color: #6b8e23;
+      text-shadow: 1px 1px white;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff8dc;
+      border: 5px solid #8fbc8f;
+      border-radius: 25px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .timer {
+      font-size: 60px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 280px;
+      border: 4px dashed #91c788;
+    }
+
+    button {
+      background: #ffcb77;
+      border: none;
+      padding: 12px 20px;
+      margin: 8px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px #d99b4a;
+    }
+
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px #d99b4a;
+    }
+
+    .tasks {
+      margin-top: 20px;
+      background: #f7e7b6;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      border-radius: 12px;
+      border: 2px solid #91c788;
+      margin: 8px;
+      font-size: 16px;
+    }
+
+    .task-row {
+      margin: 10px;
+      font-size: 18px;
+    }
+
+    .points {
+      font-size: 24px;
+      margin: 20px;
+      font-weight: bold;
+    }
+
+    .board {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .space {
+      width: 55px;
+      height: 55px;
+      background: #a8d5ba;
+      border: 3px solid #5f8d4e;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .player {
+      background: #ffd6a5;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #6f5e46;
+      margin-top: 15px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>My Study Tracker</h1>
-  <p>Welcome to my study tracker website!</p>
+  <div class="container">
+    <h1>🌱 Cozy Study Quest 🎮</h1>
+    <p>Finish your 3 tasks before the timer ends to earn points!</p>
+
+    <div class="timer" id="timer">25:00</div>
+
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+    <button onclick="setPomodoro()">Focus 25</button>
+    <button onclick="setBreak()">Break 5</button>
+
+    <div class="tasks">
+      <h2>Today’s 3 Quests</h2>
+
+      <input type="text" id="task1" placeholder="Task 1">
+      <div class="task-row">
+        <input type="checkbox" id="check1"> Complete
+      </div>
+
+      <input type="text" id="task2" placeholder="Task 2">
+      <div class="task-row">
+        <input type="checkbox" id="check2"> Complete
+      </div>
+
+      <input type="text" id="task3" placeholder="Task 3">
+      <div class="task-row">
+        <input type="checkbox" id="check3"> Complete
+      </div>
+
+      <button onclick="claimPoints()">Claim Points 🌟</button>
+    </div>
+
+    <div class="points">
+      Points: <span id="points">0</span>
+    </div>
+
+    <h2>Board Game Progress</h2>
+    <div class="board" id="board"></div>
+
+    <p class="note">
+      Each completed task = 10 points. Every 10 points moves your character forward!
+    </p>
+  </div>
+
+  <script>
+    let timeLeft = 25 * 60;
+    let timerInterval;
+    let points = 0;
+    let position = 0;
+    let timerRunning = false;
+
+    const timerDisplay = document.getElementById("timer");
+    const pointsDisplay = document.getElementById("points");
+    const board = document.getElementById("board");
+
+    function updateTimer() {
+      let minutes = Math.floor(timeLeft / 60);
+      let seconds = timeLeft % 60;
+
+      timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+    }
+
+    function startTimer() {
+      if (timerRunning) return;
+
+      timerRunning = true;
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          alert("Time is up! See how many quests you finished.");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timeLeft = 25 * 60;
+      updateTimer();
+    }
+
+    function setPomodoro() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timeLeft = 25 * 60;
+      updateTimer();
+    }
+
+    function setBreak() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timeLeft = 5 * 60;
+      updateTimer();
+    }
+
+    function claimPoints() {
+      let earned = 0;
+
+      if (document.getElementById("check1").checked) earned += 10;
+      if (document.getElementById("check2").checked) earned += 10;
+      if (document.getElementById("check3").checked) earned += 10;
+
+      if (earned === 0) {
+        alert("No quests completed yet!");
+        return;
+      }
+
+      points += earned;
+      position += earned / 10;
+
+      if (position > 14) {
+        position = 14;
+        alert("You reached the end of the board! 🌟");
+      }
+
+      pointsDisplay.textContent = points;
+      drawBoard();
+
+      document.getElementById("check1").checked = false;
+      document.getElementById("check2").checked = false;
+      document.getElementById("check3").checked = false;
+    }
+
+    function drawBoard() {
+      board.innerHTML = "";
+
+      for (let i = 0; i < 15; i++) {
+        const space = document.createElement("div");
+        space.classList.add("space");
+
+        if (i === position) {
+          space.classList.add("player");
+          space.textContent = "🐱";
+        } else if (i === 14) {
+          space.textContent = "🏡";
+        } else {
+          space.textContent = "🌼";
+        }
+
+        board.appendChild(space);
+      }
+    }
+
+    drawBoard();
+    updateTimer();
+  </script>
 </body>
 </html>
