@@ -4,18 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Great Academic Lock In</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: "Trebuchet MS", Arial, sans-serif;
       background: linear-gradient(135deg, #d9f2ff, #fff5cc, #e8ffd9);
-      color: #3f3527;
-      padding: 20px;
+      color: #2d2d2d;
+      padding: 18px;
     }
 
     .top-countdown {
@@ -23,29 +20,20 @@
       color: white;
       border: 5px solid #fdb515;
       border-radius: 22px;
-      padding: 18px;
+      padding: 16px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       box-shadow: 0 6px 0 #8b6f1f;
     }
 
-    .countdown-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .countdown-time {
-      font-size: 30px;
-      font-weight: bold;
-      color: #fdb515;
-    }
+    .countdown-title { font-size: 24px; font-weight: bold; }
+    .countdown-time { font-size: 30px; font-weight: bold; color: #fdb515; }
 
     .main-layout {
       display: grid;
-      grid-template-columns: 280px 1fr 360px;
-      gap: 20px;
-      max-width: 1400px;
+      grid-template-columns: 300px 1fr 430px;
+      gap: 18px;
+      max-width: 1500px;
       margin: auto;
     }
 
@@ -53,31 +41,47 @@
       background: #fff8dc;
       border: 4px solid #91c788;
       border-radius: 24px;
-      padding: 20px;
+      padding: 18px;
       box-shadow: 0 8px 0 rgba(0,0,0,0.15);
     }
 
-    h1, h2, h3 {
-      text-align: center;
-      margin-top: 0;
-    }
+    h1, h2, h3 { text-align: center; margin-top: 0; }
+    h1 { color: #003262; }
 
-    h1 {
-      color: #003262;
-      font-size: 34px;
-    }
+    .bear-card { text-align: center; }
 
-    .character-box {
-      text-align: center;
-    }
-
-    .pixel-character {
-      font-size: 95px;
+    .bear-stage {
       background: #e8f4ff;
       border: 4px dashed #003262;
       border-radius: 22px;
-      padding: 20px;
-      margin-bottom: 15px;
+      padding: 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s;
+    }
+
+    .bear-stage:active { transform: scale(0.96); }
+
+    .bear {
+      font-size: 90px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .bear-message {
+      background: white;
+      border: 3px solid #fdb515;
+      border-radius: 18px;
+      padding: 12px;
+      min-height: 62px;
+      font-weight: bold;
+      color: #003262;
+      margin-bottom: 14px;
     }
 
     .xp-bar {
@@ -100,7 +104,7 @@
     .stats {
       font-size: 18px;
       font-weight: bold;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .timer {
@@ -109,9 +113,9 @@
       border: 5px dashed #fdb515;
       color: #003262;
       border-radius: 25px;
-      padding: 20px;
+      padding: 18px;
       text-align: center;
-      margin: 15px auto;
+      margin: 12px auto;
       max-width: 320px;
       font-weight: bold;
     }
@@ -119,8 +123,8 @@
     button {
       background: #fdb515;
       border: none;
-      padding: 11px 16px;
-      margin: 6px;
+      padding: 10px 14px;
+      margin: 5px;
       border-radius: 14px;
       font-size: 15px;
       cursor: pointer;
@@ -133,13 +137,12 @@
       box-shadow: 0 1px #b88900;
     }
 
-    .daily-tasks input[type="text"] {
-      width: 75%;
+    input, select {
       padding: 10px;
       border-radius: 12px;
       border: 2px solid #91c788;
-      margin: 7px;
       font-size: 15px;
+      margin: 5px;
     }
 
     .daily-row {
@@ -149,12 +152,14 @@
       border-radius: 14px;
     }
 
+    .daily-row input[type="text"] { width: 72%; }
+
     .board {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .space {
@@ -174,40 +179,69 @@
       border-color: #003262;
     }
 
-    .task-section {
-      margin-bottom: 18px;
+    .task-add-box {
       background: #fff1b8;
-      padding: 12px;
-      border-radius: 18px;
       border: 3px solid #e2c15b;
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 14px;
     }
 
-    .task-section h3 {
-      margin-bottom: 10px;
-      color: #003262;
+    .task-add-box input { width: 100%; }
+    .task-add-box select { width: 48%; }
+
+    .task-list {
+      max-height: 680px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .category-title {
+      background: #003262;
+      color: #fdb515;
+      padding: 8px;
+      border-radius: 14px;
+      margin-top: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
     }
 
     .big-task {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       background: white;
       margin: 8px 0;
       padding: 10px;
       border-radius: 12px;
       border: 2px solid #ddd;
       transition: 0.3s;
+      gap: 8px;
     }
 
-    .big-task input {
-      margin-right: 10px;
-      transform: scale(1.2);
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
     }
 
     .big-task.done {
       background: #c8f7c5;
-      text-decoration: line-through;
       color: #4f7d4f;
       border-color: #68b968;
+    }
+
+    .big-task.done .task-text {
+      text-decoration: line-through;
+    }
+
+    .delete-btn {
+      background: #ff9b9b;
+      box-shadow: 0 4px #c45a5a;
+      padding: 6px 10px;
+      margin: 0;
     }
 
     .note {
@@ -216,31 +250,29 @@
       color: #6f5e46;
     }
 
-    @media (max-width: 1000px) {
-      .main-layout {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 1100px) {
+      .main-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-
   <div class="top-countdown">
     <div class="countdown-title">⏳ Countdown to June 5 Lock-In Deadline</div>
     <div class="countdown-time" id="deadlineCountdown">Loading...</div>
   </div>
 
   <div class="main-layout">
-
-    <div class="panel character-box">
+    <div class="panel bear-card">
       <h2>Berkeley Lock-In Bear</h2>
 
-      <div class="pixel-character">
-        🐻‍🎓
+      <div class="bear-stage" onclick="talkToBear()">
+        <div class="bear" id="bearFace">🐻‍🎓</div>
       </div>
 
-      <p>Brunette glasses scholar in Berkeley bear hoodie energy 💙💛</p>
+      <div class="bear-message" id="bearMessage">
+        Click me when you need motivation 💙💛
+      </div>
 
       <div class="stats">Level: <span id="level">1</span></div>
       <div class="stats">XP: <span id="xp">0</span>/100</div>
@@ -250,6 +282,8 @@
       </div>
 
       <div class="stats">Total Points: <span id="points">0</span></div>
+
+      <p class="note">Tasks save automatically on this browser.</p>
     </div>
 
     <div class="panel">
@@ -266,69 +300,55 @@
         <button onclick="setBreak()">Break 5</button>
       </div>
 
-      <div class="daily-tasks">
-        <h2>Daily Board Game Quests</h2>
+      <h2>Daily Board Game Quests</h2>
 
-        <div class="daily-row">
-          <input type="text" placeholder="Daily task 1">
-          <input type="checkbox" class="daily-check"> Done
-        </div>
+      <div class="daily-row">
+        <input type="text" placeholder="Daily task 1">
+        <input type="checkbox" class="daily-check"> Done
+      </div>
 
-        <div class="daily-row">
-          <input type="text" placeholder="Daily task 2">
-          <input type="checkbox" class="daily-check"> Done
-        </div>
+      <div class="daily-row">
+        <input type="text" placeholder="Daily task 2">
+        <input type="checkbox" class="daily-check"> Done
+      </div>
 
-        <div class="daily-row">
-          <input type="text" placeholder="Daily task 3">
-          <input type="checkbox" class="daily-check"> Done
-        </div>
+      <div class="daily-row">
+        <input type="text" placeholder="Daily task 3">
+        <input type="checkbox" class="daily-check"> Done
+      </div>
 
-        <div style="text-align:center;">
-          <button onclick="claimDailyPoints()">Claim Daily Points 🌟</button>
-        </div>
+      <div style="text-align:center;">
+        <button onclick="claimDailyPoints()">Claim Daily Points 🌟</button>
       </div>
 
       <h2>Daily Board Progress</h2>
       <div class="board" id="board"></div>
 
-      <p class="note">Each completed daily quest = 10 points + 10 XP.</p>
+      <p class="note">Each daily quest = 10 points + 10 XP.</p>
     </div>
 
     <div class="panel">
       <h2>Overall Task Sheet</h2>
 
-      <div class="task-section">
-        <h3>⚡ Physics</h3>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Finish physics homework</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Review formulas</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Practice problems</label>
+      <div class="task-add-box">
+        <input id="newTaskText" type="text" placeholder="Add a task... example: finish chem lab conclusion">
+        <select id="newTaskCategory">
+          <option>Physics</option>
+          <option>Chemistry</option>
+          <option>Biology</option>
+          <option>Personal</option>
+          <option>Other</option>
+        </select>
+        <select id="newTaskDifficulty">
+          <option value="10">Small +10 XP</option>
+          <option value="20">Medium +20 XP</option>
+          <option value="35">Hard +35 XP</option>
+        </select>
+        <button onclick="addTask()">Add Task</button>
       </div>
 
-      <div class="task-section">
-        <h3>🧪 Chemistry</h3>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Lab report</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Reaction mechanisms</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Study guide</label>
-      </div>
-
-      <div class="task-section">
-        <h3>🧬 Biology</h3>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Bio notes</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Quiz review</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Diagram practice</label>
-      </div>
-
-      <div class="task-section">
-        <h3>🌷 Personal Demanding Tasks</h3>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Clean room</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Email / admin tasks</label>
-        <label class="big-task"><input type="checkbox" onchange="toggleBigTask(this)"> Workout or walk</label>
-      </div>
-
-      <p class="note">Overall tasks give 20 XP each when checked.</p>
+      <div class="task-list" id="taskList"></div>
     </div>
-
   </div>
 
   <script>
@@ -336,10 +356,12 @@
     let timerInterval;
     let timerRunning = false;
 
-    let points = 0;
-    let xp = 0;
-    let level = 1;
-    let position = 0;
+    let points = Number(localStorage.getItem("points")) || 0;
+    let xp = Number(localStorage.getItem("xp")) || 0;
+    let level = Number(localStorage.getItem("level")) || 1;
+    let position = Number(localStorage.getItem("position")) || 0;
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     const timerDisplay = document.getElementById("timer");
     const pointsDisplay = document.getElementById("points");
@@ -347,6 +369,74 @@
     const levelDisplay = document.getElementById("level");
     const xpFill = document.getElementById("xpFill");
     const board = document.getElementById("board");
+    const taskList = document.getElementById("taskList");
+
+    const bearMessages = [
+      "You are literally locking in. Keep going 💙💛",
+      "One tiny task still counts. Do the easy one first.",
+      "Berkeley bear believes in you 🐻",
+      "Academic weapon mode loading...",
+      "Drink water, then destroy that assignment.",
+      "You do not need motivation. You need 10 minutes. Start.",
+      "Future you is going to be so grateful.",
+      "Small progress is still progress 🌱",
+      "Finish one task and claim your XP.",
+      "You are not behind. You are building momentum."
+    ];
+
+    const bearFaces = ["🐻‍🎓", "🐻✨", "😤🐻", "🐻💙", "🐻📚", "🧸💛"];
+
+    function saveData() {
+      localStorage.setItem("points", points);
+      localStorage.setItem("xp", xp);
+      localStorage.setItem("level", level);
+      localStorage.setItem("position", position);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function talkToBear() {
+      const message = bearMessages[Math.floor(Math.random() * bearMessages.length)];
+      const face = bearFaces[Math.floor(Math.random() * bearFaces.length)];
+
+      document.getElementById("bearMessage").textContent = message;
+      document.getElementById("bearFace").textContent = face;
+    }
+
+    function updateStats() {
+      pointsDisplay.textContent = points;
+      xpDisplay.textContent = xp;
+      levelDisplay.textContent = level;
+      xpFill.style.width = xp + "%";
+      saveData();
+    }
+
+    function addXP(amount) {
+      xp += amount;
+
+      while (xp >= 100) {
+        xp -= 100;
+        level++;
+        document.getElementById("bearMessage").textContent =
+          "LEVEL UP! Berkeley bear scholar evolved 🐻💙💛";
+      }
+
+      updateStats();
+    }
+
+    function removeXP(amount) {
+      xp -= amount;
+
+      if (xp < 0) {
+        if (level > 1) {
+          level--;
+          xp = 100 + xp;
+        } else {
+          xp = 0;
+        }
+      }
+
+      updateStats();
+    }
 
     function updateTimer() {
       let minutes = Math.floor(timeLeft / 60);
@@ -368,6 +458,7 @@
         } else {
           clearInterval(timerInterval);
           timerRunning = false;
+          talkToBear();
           alert("Time is up! Claim the quests you completed.");
         }
       }, 1000);
@@ -399,20 +490,6 @@
       updateTimer();
     }
 
-    function addXP(amount) {
-      xp += amount;
-
-      while (xp >= 100) {
-        xp -= 100;
-        level++;
-        alert("Level up! Berkeley bear scholar evolved 🐻💙💛");
-      }
-
-      xpDisplay.textContent = xp;
-      levelDisplay.textContent = level;
-      xpFill.style.width = xp + "%";
-    }
-
     function claimDailyPoints() {
       const checks = document.querySelectorAll(".daily-check");
       let earned = 0;
@@ -430,41 +507,116 @@
       }
 
       points += earned;
-      pointsDisplay.textContent = points;
-
       addXP(earned);
 
       position += earned / 10;
       if (position > 19) {
         position = 19;
-        alert("You reached the end of today’s board! 🏡");
+        document.getElementById("bearMessage").textContent =
+          "You reached the end of today’s board! 🏛️";
       }
 
       drawBoard();
+      updateStats();
     }
 
-    function toggleBigTask(checkbox) {
-      const task = checkbox.parentElement;
+    function addTask() {
+      const textInput = document.getElementById("newTaskText");
+      const categoryInput = document.getElementById("newTaskCategory");
+      const difficultyInput = document.getElementById("newTaskDifficulty");
 
-      if (checkbox.checked) {
-        task.classList.add("done");
-        addXP(20);
+      const text = textInput.value.trim();
+
+      if (text === "") {
+        alert("Type a task first!");
+        return;
+      }
+
+      tasks.push({
+        id: Date.now(),
+        text: text,
+        category: categoryInput.value,
+        xp: Number(difficultyInput.value),
+        done: false
+      });
+
+      textInput.value = "";
+      saveData();
+      renderTasks();
+    }
+
+    function toggleTask(id) {
+      const task = tasks.find(t => t.id === id);
+
+      if (!task) return;
+
+      task.done = !task.done;
+
+      if (task.done) {
+        points += task.xp;
+        addXP(task.xp);
+        document.getElementById("bearMessage").textContent =
+          "Task complete. XP earned. Icon behavior 🐻✨";
       } else {
-        task.classList.remove("done");
-        xp -= 20;
+        points -= task.xp;
+        if (points < 0) points = 0;
+        removeXP(task.xp);
+      }
 
-        if (xp < 0) {
-          if (level > 1) {
-            level--;
-            xp = 80;
-          } else {
-            xp = 0;
-          }
-        }
+      saveData();
+      renderTasks();
+    }
 
-        xpDisplay.textContent = xp;
-        levelDisplay.textContent = level;
-        xpFill.style.width = xp + "%";
+    function deleteTask(id) {
+      const task = tasks.find(t => t.id === id);
+
+      if (task && task.done) {
+        points -= task.xp;
+        if (points < 0) points = 0;
+        removeXP(task.xp);
+      }
+
+      tasks = tasks.filter(t => t.id !== id);
+      saveData();
+      renderTasks();
+      updateStats();
+    }
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+
+      const categories = ["Physics", "Chemistry", "Biology", "Personal", "Other"];
+
+      categories.forEach(category => {
+        const categoryTasks = tasks.filter(t => t.category === category);
+
+        if (categoryTasks.length === 0) return;
+
+        const title = document.createElement("div");
+        title.className = "category-title";
+        title.textContent = category;
+        taskList.appendChild(title);
+
+        categoryTasks.forEach(task => {
+          const row = document.createElement("div");
+          row.className = "big-task";
+          if (task.done) row.classList.add("done");
+
+          row.innerHTML = `
+            <div class="task-left">
+              <input type="checkbox" ${task.done ? "checked" : ""} onchange="toggleTask(${task.id})">
+              <span class="task-text">${task.text}</span>
+              <small>+${task.xp} XP</small>
+            </div>
+            <button class="delete-btn" onclick="deleteTask(${task.id})">x</button>
+          `;
+
+          taskList.appendChild(row);
+        });
+      });
+
+      if (tasks.length === 0) {
+        taskList.innerHTML = "<p class='note'>No tasks yet. Add your first lock-in task.</p>";
       }
     }
 
@@ -488,11 +640,12 @@
 
         board.appendChild(space);
       }
+
+      saveData();
     }
 
     function updateDeadlineCountdown() {
       const now = new Date();
-
       let deadline = new Date(now.getFullYear(), 5, 5, 23, 59, 59);
 
       if (now > deadline) {
@@ -517,8 +670,9 @@
 
     updateTimer();
     drawBoard();
+    renderTasks();
+    updateStats();
     updateDeadlineCountdown();
   </script>
-
 </body>
 </html>
